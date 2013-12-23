@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from bottle import route, request, run
+from gevent import monkey;monkey.patch_all()
+from bottle import route, request
 from trello import Cards, Lists
 import re
 
@@ -60,4 +61,5 @@ def handle_payload():
     return "done"
 
 if __name__ == '__main__':
-    run(host=WEBHOOK_CONFIG['host'], port=WEBHOOK_CONFIG['port'], debug=True)
+    bottle.run(host=WEBHOOK_CONFIG['host'],
+               port=WEBHOOK_CONFIG['port'], server='gevent', debug=True)
