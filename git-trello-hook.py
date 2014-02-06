@@ -14,7 +14,7 @@ TRELLO_CONFIG = {
 }
 
 WEBHOOK_CONFIG = {
-    'host': '10.72.17.242',
+    'host': '0.0.0.0',
     'port': 7343
 }
 
