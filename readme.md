@@ -15,17 +15,18 @@ A github/gitlab webhook script written by python inspired by ruby gem [git-trell
     }
 
     WEBHOOK_CONFIG = {
-        'host': '10.72.17.242',
+        'host': '0.0.0.0',
         'port': 7343
     }
 
-    # Open your github/gitlab repo settings, add a webhook URL according to WEBHOOK_CONFIG
+    # Open your github/gitlab repo settings, add an webhook URL according to your configs.
+    e.g. For heroku deployment, add url https://git-trello-test.herokuapp.com/webhook
+    e.g. For self hosting, add url https://your-ip-address:port/webhook
 
     $git commit -a -m "Fix [card #1]"
     $git push
 
     # git-trello will move Card #1(View Card, Card index is on the right bottom corner) from `list_id_in_progress` to `list_id_done` and append with your git commit url.
-
 
 ###`API_KEY`
 https://trello.com/1/appKey/generate
@@ -51,6 +52,15 @@ List IDs seem to be a (board id + list index), where all are treated as hex numb
 Safe way to find a list ID is to open a card from the list, click the More link in the bottom-right corner, select Export JSON and find the idList.
 
 Post receive will move all referenced cards to the LIST_ID_IN_PROGRESS, unless they are referenced by Close or Fix word, in which case it will move them to the LIST_ID_IN_DONE.
+
+#Examples
+
+Example [Trello board](https://trello.com/b/Yl6AN4Pj/git-trello-test)
+Example [git repo](https://github.com/hewigovens/git-trello-test)
+
+#TODOs
+* easy configuration
+* easy deployment
 
 #Credits
 
