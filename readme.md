@@ -19,7 +19,7 @@ A github/gitlab webhook script written by python inspired by ruby gem [git-trell
         'port': 7343
     }
 
-    # Open your github/gitlab repo settings, add a webhook URL according to TRELLO_CONFIG
+    # Open your github/gitlab repo settings, add a webhook URL according to WEBHOOK_CONFIG
 
     $git commit -a -m "Fix [card #1]"
     $git push
