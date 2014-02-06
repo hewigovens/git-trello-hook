@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 from gevent import monkey;monkey.patch_all()
-from bottle import route, request,run
+from bottle import route, request,run, default_app
 from trello import Cards, Lists
 import re
+import json
 
 TRELLO_CONFIG = {
     'api_key': 'TRELLO_API_KEY',
@@ -29,7 +30,14 @@ def index():
 
 @route("/webhook", method='POST')
 def handle_payload():
-    json_payload = request.json
+    json_payload = None
+    from_gitlab = False
+    if request.get_header('Content-Type', None) == 'application/json':
+        json_payload = request.json
+        from_gitlab = True
+    else:
+        body = request.forms['payload']
+        json_payload = json.loads(body)
     print(json_payload)
     commits = json_payload['commits']
     cards_in_commit = []
@@ -51,7 +59,7 @@ def handle_payload():
 
         for card in from_cards:
             print(card)
-            if str(card['idShort'] in cards_in_commit):
+            if str(card['idShort']) in cards_in_commit:
                 desc_with_commit = '{0}\n{1}'.format(
                     card['desc'], cards_url_dict[str(card['idShort'])])
 
@@ -63,3 +71,5 @@ def handle_payload():
 if __name__ == '__main__':
     run(host=WEBHOOK_CONFIG['host'],
                port=WEBHOOK_CONFIG['port'], server='gevent', debug=True)
+
+app = default_app()
