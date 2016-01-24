@@ -1,5 +1,5 @@
 # git-trello-hook
-A github/gitlab webhook script written by python inspired by ruby gem [git-trello](https://github.com/zmilojko/git-trello).
+A github/gitlab webhook script written in Python inspired by ruby gem [git-trello](https://github.com/zmilojko/git-trello).
 
 #Instructions
 
